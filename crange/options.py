@@ -17,6 +17,7 @@ def crange_parser():
 
 def crtags_parser():
     parser = OptionParser("usage: %prog [options] {directory} [clang-args*]")
+    parser.add_option("-n", "--includes", dest="includes", default="", type="string", help="Paths to include while parsing files seperated by commas (src,test,other)")
     parser.add_option("-a", "--auto-include", dest="autoInclude" ,default=False, action="store_true", help="Automatically detect and add include paths (-Isrc/include)")
     parser.add_option("-i", "--show-ids", dest="showIDs", default=False, action="store_true", help="Don't compute cursor IDs (very slow)")
     parser.add_option("-m", "--max-depth", dest="maxDepth", metavar="N", type="int", default=None, help="Limit cursor expansion to depth N")

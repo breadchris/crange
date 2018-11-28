@@ -26,7 +26,9 @@ def worker(worker_params):
     c      = CrTags()
     c.opts = opts
     c.args = args
+    includes = opts.includes.split(",")
     clang_line = [source, '-Iinclude']
+    clang_line.extend(["-I{}".format(x) for x in includes])
     try:
         tu = index.parse(None, clang_line)
         c.get_info(tu.cursor)
@@ -50,7 +52,7 @@ def spawn_workers(opts, args):
     try:
         # Fire dbkeeper process.
         pool.apply_async(dbkeeper, (queue, opts))
-
+        
         # Then fire AST worker processes.
         worker_params = ((s, count, queue, opts, args) for count,s in enumerate(sfo.locate(root)))
         pool.map(worker, worker_params)

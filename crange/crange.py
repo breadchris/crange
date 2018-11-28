@@ -16,6 +16,10 @@ class Crange:
             res = tabulate(tag.find_kinds(), headers=["Kinds"])
         elif opts.tagListTypes:
             res = tabulate(tag.find_types(), headers=["Types"])
+        elif opts.tagKind:
+            res = tabulate(tag.find_kinds(opts.tagKind), headers=["Kinds"])
+        elif opts.tagType:
+            res = tabulate(tag.find_types(opts.tagType), headers=["Types"])
         elif len(args) > 0:
             if opts.tagRefs:
                 res = tabulate(tag.find_refs(args[0]), headers=tag.headers)
